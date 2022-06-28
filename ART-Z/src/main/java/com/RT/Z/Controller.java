@@ -8,10 +8,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/saludar")
 public class Controller {
 
+
+    //protected $test;
+
     @GetMapping("/hola")
     public String saludar() {
         return "Sin Parar de Aprender a Saludar";
     }
-
-
 }
