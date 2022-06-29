@@ -17,18 +17,24 @@ public class PurchaseController {
 
     @GetMapping("/all")
     public ResponseEntity<List<Purchase>> getAll() {
-        return new ResponseEntity<>(purchaseService.getALL(), HttpStatus.OK);
+        return new ResponseEntity<>(purchaseService.getAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/client/{clienId}")
-    public ResponseEntity<List<Purchase>> getByClient(@PathVariable("clienId") String clienId) {
-        return purchaseService.getByClient(clienId)
+    @GetMapping("/client/{idClient}")
+    public ResponseEntity<List<Purchase>> getByClient(@PathVariable("idClient") String clientId) {
+        return purchaseService.getByClient(clientId).map(
+                purchases -> new ResponseEntity<>(purchases, HttpStatus.OK)
+        ).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+    @GetMapping("/client2/{idCliente}")
+    public ResponseEntity<List<Purchase>> getById(@PathVariable("idCliente") int clientId) {
+        return purchaseService.getById(clientId)
                 .map(purchases -> new ResponseEntity<>(purchases, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PostMapping("/save")
-    public ResponseEntity<Purchase> save(@RequestBody Purchase purchase){
+    public ResponseEntity<Purchase> save(@RequestBody Purchase purchase) {
         return new ResponseEntity<>(purchaseService.save(purchase), HttpStatus.CREATED);
     }
 

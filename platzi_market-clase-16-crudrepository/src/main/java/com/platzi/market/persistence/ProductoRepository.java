@@ -10,14 +10,17 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+
 @Repository
 public class ProductoRepository implements ProductRepository {
     @Autowired
     private ProductoCrudRepository productoCrudRepository;
+
     @Autowired
     private ProductMapper mapper;
+
     @Override
-    public List<Product> getALL() {
+    public List<Product> getAll() {
         List<Producto> productos = (List<Producto>) productoCrudRepository.findAll();
         return mapper.toProducts(productos);
     }
@@ -36,7 +39,6 @@ public class ProductoRepository implements ProductRepository {
 
     @Override
     public Optional<Product> getProduct(int productId) {
-
         return productoCrudRepository.findById(productId).map(producto -> mapper.toProduct(producto));
     }
 
@@ -45,8 +47,9 @@ public class ProductoRepository implements ProductRepository {
         Producto producto = mapper.toProducto(product);
         return mapper.toProduct(productoCrudRepository.save(producto));
     }
+
     @Override
-    public void delete(int idProducto) {
-        productoCrudRepository.deleteById(idProducto);
+    public void delete(int productId) {
+        productoCrudRepository.deleteById(productId);
     }
 }

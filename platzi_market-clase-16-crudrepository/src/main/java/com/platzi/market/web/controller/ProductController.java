@@ -19,11 +19,11 @@ public class ProductController {
 
     @GetMapping("/all")
     public ResponseEntity<List<Product>> getAll() {
-        return new ResponseEntity<>(productService.getALL(), HttpStatus.OK);
+        return new ResponseEntity<>(productService.getAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/{productId}")
-    public ResponseEntity<Product> getProduct(@PathVariable("productId") int productId) {
+    @GetMapping("/{id}")
+    public ResponseEntity<Product> getProduct(@PathVariable("id") int productId) {
         return productService.getProduct(productId)
                 .map(product -> new ResponseEntity<>(product, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
